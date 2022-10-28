@@ -10,14 +10,14 @@ jobs:
     name: Tests # название конктретной работы в pipeline
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout  # клонируем репозиторый
+      - name: Checkout  # клонируем репозиторий
         uses: actions/checkout@v2
 
       - name: Install dependencies
         run: yarn # устанавливаем зависимости
 
       - name: Test
-        run: yarn test:e2e # запускаем скрипт тестами
+        run: yarn test:e2e # запускаем скрипт c тестами
 
   deploy:
     name: Deploy
