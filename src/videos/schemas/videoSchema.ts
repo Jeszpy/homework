@@ -2,23 +2,23 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { videoAvailableResolutions } from '../entities/video.entity';
 
-export type VideoDocument = VideoSchemaClass & Document;
+export type VideoDocument = VideoSchema & Document;
 
 @Schema()
-export class VideoSchemaClass {
+export class VideoSchema {
   @Prop({ required: true })
   title: string;
 
-  @Prop()
+  @Prop({ required: true })
   author: string;
 
-  @Prop()
+  @Prop({ default: false })
   canBeDownloaded: boolean;
 
-  @Prop()
+  @Prop({ default: null })
   minAgeRestriction: null | number;
 
-  @Prop()
+  @Prop({})
   createdAt: Date;
 
   @Prop()
@@ -28,4 +28,4 @@ export class VideoSchemaClass {
   availableResolutions: typeof videoAvailableResolutions;
 }
 
-export const VideoSchema = SchemaFactory.createForClass(VideoSchemaClass);
+export const videoSchema = SchemaFactory.createForClass(VideoSchema);

@@ -24,10 +24,10 @@ import { Video } from './entities/video.entity';
 export class VideosController {
   constructor(private readonly videosService: VideosService) {}
 
-  @Post()
-  createVideo(@Body() createVideoDto: CreateVideoDto) {
-    return this.videosService.createNewVideo(createVideoDto);
-  }
+  // @Post()
+  // createVideo(@Body() createVideoDto: CreateVideoDto) {
+  //   return this.videosService.createNewVideo(createVideoDto);
+  // }
 
   @ApiOkResponse({
     description: 'Success',
@@ -39,21 +39,21 @@ export class VideosController {
     return this.videosService.getAllVideos();
   }
 
-  @Get(':id')
-  getOneVideo(@Param('id') id: string) {
-    return this.videosService.getOneVideoById(+id);
-  }
-
-  @Put(':id')
-  updateOneVideo(
-    @Param('id') id: string,
-    @Body() updateVideoDto: UpdateVideoDto,
-  ) {
-    return this.videosService.updateOneVideoById(+id, updateVideoDto);
-  }
-
-  @Delete(':id')
-  deleteOneVideo(@Param('id') id: string) {
-    return this.videosService.deleteOneVideoById(+id);
-  }
+  // @Get(':id')
+  // getOneVideo(@Param('id') id: string) {
+  //   return this.videosService.getOneVideoById(+id);
+  // }
+  //
+  // @Put(':id')
+  // updateOneVideo(
+  //   @Param('id') id: string,
+  //   @Body() updateVideoDto: UpdateVideoDto,
+  // ) {
+  //   return this.videosService.updateOneVideoById(+id, updateVideoDto);
+  // }
+  //
+  // @Delete(':id')
+  // deleteOneVideo(@Param('id') id: string) {
+  //   return this.videosService.deleteOneVideoById(+id);
+  // }
 }

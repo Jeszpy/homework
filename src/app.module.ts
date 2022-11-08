@@ -18,16 +18,6 @@ const chooseEnvFilePath = (): string => {
 //TODO: 1. как переделать в "настоящий" модулль? с imports и inject. 2. делается это динамическим модулем (кастомныим)
 const DatabaseModule = () => {
   const dbType = process.env.DATABASE_TYPE;
-  // let dbModule;
-  // if (dbType === 'postgres') {
-  //   dbModule = TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService });
-  // }
-  // if (dbType === 'mongodb') {
-  //   dbModule = MongooseModule.forRootAsync({
-  //     useClass: MongooseConfigService,
-  //   });
-  // }
-  // return dbModule;
   return dbType === 'postgres'
     ? TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService })
     : MongooseModule.forRootAsync({

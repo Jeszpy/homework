@@ -1,26 +1,28 @@
 import { Module } from '@nestjs/common';
-import { IVideosRepository, VideosService } from './videos.service';
+import {
+  IVideosRepository,
+  IVideosRepositoryKey,
+  VideosService,
+} from './videos.service';
 import { VideosController } from './videos.controller';
-import { VideosMongodbRepository } from './repositories/videos.mongodb.repository';
+import { VideosMongoDbRepository } from './repositories/videos-mongo-db-repository.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { VideoSchema, VideoSchemaClass } from './schemas/videoSchemaClass';
+import { videoSchema, VideoSchema } from './schemas/videoSchema';
 
-//TODO: как подключать разные репозитории?
 const VideosRepository = {
-  provide: VideosMongodbRepository,
-  useClass:
+  provide: IVideosRepositoryKey,
+  useClass: (() =>
     process.env.DATABASE_TYPE === 'postgres'
-      ? VideosMongodbRepository
-      : VideosMongodbRepository,
+      ? VideosMongoDbRepository
+      : VideosMongoDbRepository)(),
 };
 
 //TODO: 1. сделать подключение mongoose\typeorm .forFeature модуля по .env переменной и с прокидкой schemas\entities 2. делается это динамическим модулем (кастомныим)
-
-const schemas = [{ name: VideoSchemaClass.name, schema: VideoSchema }];
+const schemas = [{ name: VideoSchema.name, schema: videoSchema }];
 
 @Module({
   imports: [MongooseModule.forFeature(schemas)],
   controllers: [VideosController],
-  providers: [VideosService, VideosMongodbRepository],
+  providers: [VideosService, VideosRepository],
 })
 export class VideosModule {}
