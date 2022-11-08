@@ -11,8 +11,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 const chooseEnvFilePath = (): string => {
   const env = process.env.NODE_ENV;
-  const a = process.env;
-  console.log(a, '');
+  console.log(process.env);
+  console.log(process.env.MONGO_URI);
   if (env === 'development') {
     return `.env.${process.env.NODE_ENV}`;
   } else if (env === 'staging') {
