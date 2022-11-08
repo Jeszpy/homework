@@ -14,6 +14,8 @@ const swaggerConfig = new DocumentBuilder()
 //TODO: create setAppPipes-Guards() func
 
 async function bootstrap() {
+  const a = process.env;
+  console.log(a);
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   // --- Pipes ---
