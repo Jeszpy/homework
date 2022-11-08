@@ -14,6 +14,7 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+
     app.enableCors();
     app.useGlobalPipes(
       new ValidationPipe({
@@ -23,6 +24,7 @@ describe('AppController (e2e)', () => {
       }),
     );
     await app.init();
+
     httpServer = app.getHttpServer();
   });
 
