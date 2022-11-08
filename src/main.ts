@@ -11,6 +11,8 @@ const swaggerConfig = new DocumentBuilder()
   // .addTag('Homework')
   .build();
 
+//TODO: create setAppPipes-Guards() func
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
