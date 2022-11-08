@@ -1,10 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
+import { SwaggerModule } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
 describe('AppController (e2e)', () => {
+  jest.setTimeout(5 * 60 * 1000);
   let app: INestApplication;
+  let httpServer;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -12,13 +16,27 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.enableCors();
+    app.useGlobalPipes(
+      new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        stopAtFirstError: true,
+      }),
+    );
     await app.init();
+    httpServer = app.getHttpServer();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('/ (GET)', async () => {
+    const response = await request(httpServer).get('/app');
+
+    expect(response).toBeDefined();
+    expect(response.status).toBe(200);
+    expect(response.body).toStrictEqual({ Hello: 'World!' });
   });
 });

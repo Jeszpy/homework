@@ -10,9 +10,12 @@ import { MongooseConfigService } from './datebase/mongodb-mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 
 const chooseEnvFilePath = (): string => {
-  return process.env.NODE_ENV
-    ? `.env.${process.env.NODE_ENV}`
-    : '.env.production';
+  const env = process.env.NODE_ENV;
+  if (env === 'development') {
+    return `.env.${process.env.NODE_ENV}`;
+  } else if (env === 'staging') {
+    return `.env.${process.env.NODE_ENV}`;
+  } else return '.env.production';
 };
 
 //TODO: 1. как переделать в "настоящий" модулль? с imports и inject. 2. делается это динамическим модулем (кастомныим)

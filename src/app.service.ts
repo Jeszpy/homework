@@ -10,7 +10,7 @@ export class App {
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return textToResponse;
+  getHello() {
+    return { Hello: 'World!' };
   }
 }
