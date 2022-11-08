@@ -14,6 +14,11 @@ jobs:
       - name: Checkout  # клонируем репозиторый
         uses: actions/checkout@v2
 
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+
       - name: Install dependencies
         run: yarn # устанавливаем зависимости
 
