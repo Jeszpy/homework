@@ -21,7 +21,7 @@ jobs:
         run: yarn test:e2e # запускаем скрипт тестами
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
-  Copy-src-to-'main'-branch:
+  Copy-src-to-main-branch:
     name: Copy my folder
     runs-on: ubuntu-latest
     needs: Tests
